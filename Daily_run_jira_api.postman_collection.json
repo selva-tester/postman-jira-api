@@ -1,0 +1,1675 @@
+{
+	"info": {
+		"_postman_id": "ee7e5096-441f-4b74-91c2-71d446a085af",
+		"name": "Daily_run_jira_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26798595"
+	},
+	"item": [
+		{
+			"name": "Searching projects",
+			"item": [
+				{
+					"name": "Searching single project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Searching a single project\", function () {\r",
+									"  \r",
+									"  let totalProject = jsonData.total;\r",
+									"console.log(totalProject);\r",
+									"if(totalProject > 1){\r",
+									"     pm.expect(jsonData.maxResults).to.eql(1);\r",
+									"}else{\r",
+									"    console.log(\"Only one project is present, please add more projects to validate this parameter\");\r",
+									"}\r",
+									"   \r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "ATATT3xFfGF0-OwrSIxLCPoohUve-Nwg6gSW6wn9XiG8a-0EK4ssbqOfaJRgVb7oBjU0wbCU5CyC7KDhXCXgG1OW2u1AS8bErZisZXfkWzb8xkQLqmM53Eyk8mN52EC9U4jlQ4zkwAxL3tkGgGfATsS1oU1jKp-ibuCB_E0nuWPZAUVfcUzuBiQ=F77516FC",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj7@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}rest/api/3/project/search?maxResults=1&=",
+							"host": [
+								"{{Url}}rest"
+							],
+							"path": [
+								"api",
+								"3",
+								"project",
+								"search"
+							],
+							"query": [
+								{
+									"key": "maxResults",
+									"value": "1"
+								},
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search project using query",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"validating project 'Type'\", function () {\r",
+									"    \r",
+									"    pm.expect(jsonData.values[0].projectTypeKey).to.eql(\"software\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"validating project 'Key'\", function () {\r",
+									"     pm.expect(jsonData.values[0].key).to.eql(\"DAA\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validating project 'Name'\", function () {\r",
+									"     pm.expect(jsonData.values[0].name).to.eql(\"Daily_assign\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"validating isLast attribute to be true\", function () {\r",
+									"      pm.expect(jsonData.isLast).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "ATATT3xFfGF0-OwrSIxLCPoohUve-Nwg6gSW6wn9XiG8a-0EK4ssbqOfaJRgVb7oBjU0wbCU5CyC7KDhXCXgG1OW2u1AS8bErZisZXfkWzb8xkQLqmM53Eyk8mN52EC9U4jlQ4zkwAxL3tkGgGfATsS1oU1jKp-ibuCB_E0nuWPZAUVfcUzuBiQ=F77516FC",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj7@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"assigneeType\": \"PROJECT_LEAD\",\n  \"avatarId\": 10200,\n  \"categoryId\": 10120,\n  \"description\": \"Cloud migration initiative\",\n  \"issueSecurityScheme\": 10001,\n  \"key\": \"EX\",\n  \"leadAccountId\": \"5b10a0effa615349cb016cd8\",\n  \"name\": \"Example\",\n  \"notificationScheme\": 10021,\n  \"permissionScheme\": 10011,\n  \"projectTemplateKey\": \"com.atlassian.jira-core-project-templates:jira-core-simplified-process-control\",\n  \"projectTypeKey\": \"business\",\n  \"url\": \"http://atlassian.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}rest/api/3/project/search?query=DAA",
+							"host": [
+								"{{Url}}rest"
+							],
+							"path": [
+								"api",
+								"3",
+								"project",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "DAA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validatnig wrong query",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Giving wrong query should return 0 in total\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.total).to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "ATATT3xFfGF0-OwrSIxLCPoohUve-Nwg6gSW6wn9XiG8a-0EK4ssbqOfaJRgVb7oBjU0wbCU5CyC7KDhXCXgG1OW2u1AS8bErZisZXfkWzb8xkQLqmM53Eyk8mN52EC9U4jlQ4zkwAxL3tkGgGfATsS1oU1jKp-ibuCB_E0nuWPZAUVfcUzuBiQ=F77516FC",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj7@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"assigneeType\": \"PROJECT_LEAD\",\n  \"avatarId\": 10200,\n  \"categoryId\": 10120,\n  \"description\": \"Cloud migration initiative\",\n  \"issueSecurityScheme\": 10001,\n  \"key\": \"EX\",\n  \"leadAccountId\": \"5b10a0effa615349cb016cd8\",\n  \"name\": \"Example\",\n  \"notificationScheme\": 10021,\n  \"permissionScheme\": 10011,\n  \"projectTemplateKey\": \"com.atlassian.jira-core-project-templates:jira-core-simplified-process-control\",\n  \"projectTypeKey\": \"business\",\n  \"url\": \"http://atlassian.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}rest/api/3/project/search?query=NAme",
+							"host": [
+								"{{Url}}rest"
+							],
+							"path": [
+								"api",
+								"3",
+								"project",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "NAme"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Searching project feature",
+			"item": [
+				{
+					"name": "project feature 200 res",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 when getting a project feature\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"validate the features id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData.features[0].projectId);\r",
+									"    pm.expect(jsonData.features[0].projectId).to.eql(10000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{jiratoken}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj7@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/rest/api/3/project/10000/features",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"3",
+								"project",
+								"10000",
+								"features"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project feature 401 res",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cgadef",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/rest/api/3/project/10000/features",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"3",
+								"project",
+								"10000",
+								"features"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project feature 400 res",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"accept": true,
+							"user-agent": true,
+							"host": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{jiratoken}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj7@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/rest/api/3/project/10000/features",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"3",
+								"project",
+								"10000",
+								"features"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Issues",
+			"item": [
+				{
+					"name": "Search projects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"console.log(response.values[0].id);\r",
+									"const id = response.values[0].id;\r",
+									"pm.collectionVariables.set(\"projectID\",id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{jiratoken}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj7@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}//rest/api/3/project/search",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"",
+								"rest",
+								"api",
+								"3",
+								"project",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting issue types",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 when getting issue types\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const issueTypeId = pm.response.json();\r",
+									"issueTypeId.forEach(typeid => {\r",
+									"if(typeid.name === 'Story'){\r",
+									"    let id = typeid.id;\r",
+									"pm.collectionVariables.set(\"issueID\",id);\r",
+									"}\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{jiratoken}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj7@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{Url}}/rest/api/3/issuetype/project?projectId={{projectID}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"3",
+								"issuetype",
+								"project"
+							],
+							"query": [
+								{
+									"key": "projectId",
+									"value": "{{projectID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creating an issue in project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 for creating an issue\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"console.log(\"key of issue \"+response.key);\r",
+									" \r",
+									"if(response.key != null){\r",
+									"    const key = response.key;\r",
+									"    console.log(key);\r",
+									"    pm.collectionVariables.set(\"issueKey\",key);\r",
+									"\r",
+									"}else{\r",
+									"    console.log(\"Key is null. Please check issue is created or not\");\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response time is less than 1200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has expected string 'Created'\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validating 'id' attribute is present\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validating 'key' attribute is present\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"key\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validating 'self' attribute is present\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"self\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{jiratoken}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj7@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fields\": {\n    \n    \"issuetype\": {\n      \"id\": \"{{issueID}}\"\n    },\n    \n  \n    \"project\": {\n      \"id\": \"{{projectID}}\"\n    },\n   \n   \n     \"summary\": \"{{$randomPhrase}}\"\n  },\n  \"update\": {}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/rest/api/3/issue",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"3",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validating created issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and issue created successfully\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response size is under limit 6000 bytes\", function () {\r",
+									"    const responseSize = pm.response.responseSize;\r",
+									"    console.log(\"Response size: \" + responseSize + \" bytes\");\r",
+									"    pm.expect(responseSize).to.be.below(6000); \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{jiratoken}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "selvagovindaraj7@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{Url}}/rest/api/3/issue/{{issueKey}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"3",
+								"issue",
+								"{{issueKey}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting an issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 when deleting a project without permission\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validating the error message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"You do not have permission to delete issues in this project.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{jiratoken}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}rest/api/3/issue/{{issueKey}}",
+							"host": [
+								"{{Url}}rest"
+							],
+							"path": [
+								"api",
+								"3",
+								"issue",
+								"{{issueKey}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth_Verification",
+			"item": [
+				{
+					"name": "Set_BasicAuth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"validating token\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"token\");\r",
+									"});\r",
+									"const res = pm.response.json();\r",
+									"const tokenvalue = res.token;\r",
+									"console.log(\"Herokku app token: \"+tokenvalue);\r",
+									"pm.collectionVariables.set(\"herokkuToken\",tokenvalue);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{heroku_url}}/auth",
+							"host": [
+								"{{heroku_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_BookID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{heroku_url}}/booking",
+							"host": [
+								"{{heroku_url}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creating_Booking",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validating status code 200 for creation\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 200]);\r",
+									"});\r",
+									"pm.test(\"validating status 'Ok'\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"const resp = pm.response.json();\r",
+									"const bookid = resp.bookingid;\r",
+									"const firstName = resp.booking.firstname;\r",
+									"console.log(firstName);\r",
+									"const lastName = resp.booking.lastname;\r",
+									"console.log(lastName);\r",
+									"const totalPrice = resp.booking.totalprice;\r",
+									"console.log(totalPrice);\r",
+									"pm.collectionVariables.set(\"heroku_bookid\",bookid);\r",
+									"pm.collectionVariables.set(\"heroku_firstname\",firstName);\r",
+									"pm.collectionVariables.set(\"heroku_lastName\",lastName);\r",
+									"pm.collectionVariables.set(\"heroku_totalPrice\",totalPrice);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\" : \"{{$randomFullName}}\",\n    \"lastname\" : \"{{$randomLastName}}\",\n    \"totalprice\" : \"{{$randomPrice}}\",\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+						},
+						"url": {
+							"raw": "{{heroku_url}}/booking",
+							"host": [
+								"{{heroku_url}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify created booking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"validating the firstname\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"let firstName = pm.collectionVariables.get(\"heroku_firstname\");\r",
+									"    pm.expect(jsonData.firstname).to.eql(firstName);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"validating the lastname\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    let lastName = pm.collectionVariables.get(\"heroku_lastName\");\r",
+									"    pm.expect(jsonData.lastname).to.eql(lastName);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"validating the totalprice\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"     let totalPrice = pm.collectionVariables.get(\"heroku_totalPrice\");\r",
+									"    pm.expect(jsonData.totalprice).to.eql(totalPrice);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"validating the totalprice\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.depositpaid).to.be.true;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{heroku_url}}/booking/{{heroku_bookid}}",
+							"host": [
+								"{{heroku_url}}"
+							],
+							"path": [
+								"booking",
+								"{{heroku_bookid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update_without_Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 when updating without authentication\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "token=abc123"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\" : \"{{$randomFirstName}}\",\n    \"lastname\" : \"{{$randomLastName}}\",\n    \"totalprice\" : {{$randomPrice}},\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+						},
+						"url": {
+							"raw": "{{heroku_url}}/booking/{{heroku_bookid}}",
+							"host": [
+								"{{heroku_url}}"
+							],
+							"path": [
+								"booking",
+								"{{heroku_bookid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update full details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 when updating with authentication\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"\r",
+									"    url: 'https://restful-booker.herokuapp.com/auth',\r",
+									"    method: 'POST',\r",
+									"    headers: {\r",
+									"        'Content-Type': 'application/json'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            \"username\": \"admin\",\r",
+									"            \"password\": \"password123\"\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"\r",
+									"    if (err) {\r",
+									"        console.log(err);\r",
+									"        return;\r",
+									"    } else {\r",
+									"        const res_data = response.json();\r",
+									"        console.log(res_data);\r",
+									"        const tokenID = res_data.token;\r",
+									"        console.log(\"id\" + tokenID);\r",
+									"        pm.variables.set(\"token_id\", \"tokenID\");\r",
+									"    }\r",
+									"}\r",
+									")"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "token={{herokkuToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku_url}}/booking/{{heroku_bookid}}",
+							"host": [
+								"{{heroku_url}}"
+							],
+							"path": [
+								"booking",
+								"{{heroku_bookid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating partial details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 when updating partially\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "token={{herokkuToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\" : \"{{$randomFirstName}}\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku_url}}/booking/{{heroku_bookid}}",
+							"host": [
+								"{{heroku_url}}"
+							],
+							"path": [
+								"booking",
+								"{{heroku_bookid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting the booking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "token={{herokkuToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{heroku_url}}/booking/{{heroku_bookid}}",
+							"host": [
+								"{{heroku_url}}"
+							],
+							"path": [
+								"booking",
+								"{{heroku_bookid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User creation crud operations",
+			"item": [
+				{
+					"name": "Get the user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 for getting the users list\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const response_data = pm.response.json();\r",
+									"const idValue = response_data.id;\r",
+									"\r",
+									"pm.variables.set(\"userid\",idValue);\r",
+									"console.log(idValue);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gorest_url}}/public/v2/users",
+							"host": [
+								"{{gorest_url}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 for Creating the new user\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"const response_data = pm.response.json();\r",
+									"const idValue = response_data.id;\r",
+									"\r",
+									"pm.collectionVariables.set(\"userID\",idValue);\r",
+									"console.log(idValue);\r",
+									"\r",
+									"const reqData =JSON.parse(pm.request.body);\r",
+									"const reqName = reqData.name;\r",
+									"const reqEmail = reqData.email;\r",
+									"\r",
+									"console.log(\"UserName is \"+reqName + \"UserEmail is \"+reqEmail);\r",
+									"\r",
+									"pm.collectionVariables.set(\"reqName\", reqName);\r",
+									"pm.collectionVariables.set(\"reqEmail\", reqEmail);\r",
+									"\r",
+									"\r",
+									"pm.test(\"created with given name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(response_data.name).to.eql(reqName);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gorest_url}}/public/v2/users",
+							"host": [
+								"{{gorest_url}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify created user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User is created with the correct Name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"reqName\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User is created with the correct Email\", function () {\r",
+									"    \r",
+									"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"reqEmail\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gorest_url}}/public/v2/users/{{userID}}",
+							"host": [
+								"{{gorest_url}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update the user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const req = JSON.parse(pm.request.body);\r",
+									"const req_status = req.status;\r",
+									"\r",
+									"pm.test(\"Updating the user\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(req_status);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gorest_url}}/public/v2/users/{{userID}}",
+							"host": [
+								"{{gorest_url}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete the user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204 after deleting the user\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gorest_url}}/public/v2/users/{{userID}}",
+							"host": [
+								"{{gorest_url}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify the delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Displaying the message \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"Resource not found\");\r",
+									"});\r",
+									"pm.test(\"Status code is 404 when not found resourse\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Warning is present\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Resource not found\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gorest_url}}/public/v2/users/{{userID}}",
+							"host": [
+								"{{gorest_url}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userID}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "jiratoken",
+			"value": "ATATT3xFfGF0-OwrSIxLCPoohUve-Nwg6gSW6wn9XiG8a-0EK4ssbqOfaJRgVb7oBjU0wbCU5CyC7KDhXCXgG1OW2u1AS8bErZisZXfkWzb8xkQLqmM53Eyk8mN52EC9U4jlQ4zkwAxL3tkGgGfATsS1oU1jKp-ibuCB_E0nuWPZAUVfcUzuBiQ=F77516FC"
+		},
+		{
+			"key": "url",
+			"value": "url"
+		},
+		{
+			"key": "Url",
+			"value": "https://dailyframe.atlassian.net/"
+		},
+		{
+			"key": "projectID",
+			"value": ""
+		},
+		{
+			"key": "issueKey",
+			"value": ""
+		},
+		{
+			"key": "issueID",
+			"value": ""
+		},
+		{
+			"key": "projectName",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "username",
+			"value": "selvagovindaraj7@gmail.com",
+			"type": "default"
+		},
+		{
+			"key": "projectLeadName",
+			"value": "selva",
+			"type": "default"
+		},
+		{
+			"key": "herokkuToken",
+			"value": ""
+		},
+		{
+			"key": "heroku_firstname",
+			"value": ""
+		},
+		{
+			"key": "heroku_bookid",
+			"value": ""
+		},
+		{
+			"key": "heroku_lastName",
+			"value": ""
+		},
+		{
+			"key": "heroku_ftotalPrice",
+			"value": ""
+		},
+		{
+			"key": "heroku_totalPrice",
+			"value": ""
+		},
+		{
+			"key": "heroku_url",
+			"value": "https://restful-booker.herokuapp.com",
+			"type": "default"
+		},
+		{
+			"key": "gorest_url",
+			"value": "https://gorest.co.in/",
+			"type": "default"
+		},
+		{
+			"key": "Authorization",
+			"value": "Bearer 01a4e0a23bfcf38c38370a28def242ed286a20a13234b2171dd7aec6e923bf24",
+			"type": "default"
+		},
+		{
+			"key": "idValue",
+			"value": ""
+		},
+		{
+			"key": "reqName",
+			"value": ""
+		},
+		{
+			"key": "reqEmail",
+			"value": ""
+		},
+		{
+			"key": "userID",
+			"value": ""
+		}
+	]
+}
